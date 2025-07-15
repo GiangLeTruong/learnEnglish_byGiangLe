@@ -1,0 +1,164 @@
+<!-- Breadcrumb Start -->
+<div class="breadcrumb-wrap">
+    <div class="container">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+            <li class="breadcrumb-item"><a href="#">Thao tác</a></li>
+            <li class="breadcrumb-item" active><a href="#">Cập nhật từ vựng</a></li>
+        </ul>
+    </div>
+</div>
+<!-- Breadcrumb End -->
+
+
+<!-- Checkout Start -->
+{{#with detailVocabulary}}
+<form action="/vocabulary/update/{{id}}" method="post">
+    <div class="checkout">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="vocabulary-form">
+                        <h2>Thông tin từ vựng mới</h2>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Từ vựng:</label>
+                                <input class="form-control" type="text" value="{{word}}" name="word" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Phát âm:</label>
+                                <input class="form-control" type="text" value="{{pronunciation}}" name="pronunciation"
+                                    required>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Loại từ:</label>
+                                <select class="custom-select" name="type">
+                                    <option {{#if (eq type "Nouns" )}}selected{{/if}}>Nouns</option>
+                                    <option {{#if (eq type "Verbs" )}}selected{{/if}}>Verbs</option>
+                                    <option {{#if (eq type "Adjectives" )}}selected{{/if}}>Adjectives</option>
+                                    <option {{#if (eq type "Adverbs" )}}selected{{/if}}>Adverbs</option>
+                                    <option {{#if (eq type "Idiom" )}}selected{{/if}}>Idiom</option>
+                                    <option {{#if (eq type "Other" )}}selected{{/if}}>Other</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Độ khó:</label>
+                                <select class="custom-select" name="difficulty">
+                                    <option {{#if (eq difficulty 1 )}}selected{{/if}}>1</option>
+                                    <option {{#if (eq difficulty 2 )}}selected{{/if}}>2</option>
+                                    <option {{#if (eq difficulty 3 )}}selected{{/if}}>3</option>
+                                    <option {{#if (eq difficulty 4 )}}selected{{/if}}>4</option>
+                                    <option {{#if (eq difficulty 5 )}}selected{{/if}}>5</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Đã học:</label>
+                                <select class="custom-select" name="isLearned">
+                                    <option {{#if isLearned}}selected{{/if}}>true</option>
+                                    <option {{#unless isLearned}}selected{{/unless}}>false</option>
+                                </select>
+                            </div>
+                            <div class="col-md-12">
+                                <label>Nghĩa tiếng Anh-Việt:</label>
+
+                                <textarea class="form-control" name="meaning_vi" required
+                                    rows="6">{{meaning_vi}}</textarea>
+                            </div>
+                            <div class="col-md-12">
+                                <label>Định nghĩa Anh-Anh</label>
+                                <textarea class="form-control" name="definition" required
+                                    rows="6">{{definition}}</textarea>
+                            </div>
+                            <h2>Ví dụ minh họa cho từ vựng:</h2>
+                            <div class="col-md-12">
+                                <div id="examples-container">
+
+                                    {{#each Examples}}
+                                    <div class="example-group">
+
+                                        <textarea class="form-control mb-0" name="examples[]"
+                                            rows="3">{{sentence}}</textarea>
+                                        <div class="text-right">
+                                            <button type="button" class="btn btn-danger"
+                                                onclick="removeExample(this)"><i class="fa fa-remove"></i></button>
+                                        </div>
+
+                                    </div>
+                                    {{/each}}
+
+
+                                </div>
+                                <button type="button" class="btn btn-secondary" onclick="addExample()">➕ Thêm ví
+                                    dụ</button>
+                            </div>
+                            {{#with Medium}}
+                            <h2>Hình ảnh và âm thanh</h2>
+                            <div class="col-md-12 mb-2">
+                                <label>Đường dẫn hình ảnh:</label>
+                                <input class="form-control" type="text" name="imagePath" value="{{imagePath}}">
+                                {{#if imagePath}} <a href="{{imagePath}}" target="_blank">=> Go to
+                                    Picture</a>{{/if}}
+                            </div>
+
+                            <div class="col-md-12">
+                                <label>Đường dẫn âm thanh:</label>
+                                <input class="form-control" type="text" name="audioPath" value="{{audioPath}}">
+                                {{#if audioPath}} <a href="{{audioPath}}" target="_blank">=> Go to
+                                    Audio</a>{{/if}}
+                            </div>
+                            {{/with}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="checkout-payment">
+                        <h2>Lĩnh vực của từ vựng</h2>
+                        <div class="payment-methods">
+                            {{#each ../categories}}
+                            <div class="payment-method">
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input" id="category-{{id}}"
+                                        name="category" value="{{id}}" {{#if (eq id ../Category.id)}}checked{{/if}}>
+                                    <label class="custom-control-label" for="category-{{id}}">{{name}}</label>
+                                </div>
+                                <div class="payment-content" id="category-{{id}}-show">
+                                    <p>
+                                        {{description}}
+                                    </p>
+                                </div>
+                            </div>
+                            {{/each}}
+                        </div>
+                    </div>
+                    <div class="checkout-payment">
+                        <h2>Loại chứng chỉ học thuật</h2>
+                        <div class="payment-methods">
+                            {{#each ../certificates}}
+                            <div class="payment-method">
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input" id="certificate-{{id}}"
+                                        name="certificate" value="{{id}}" {{#if (eq id
+                                        ../Certificate.id)}}checked{{/if}}>
+                                    <label class="custom-control-label" for="certificate-{{id}}">{{name}}</label>
+                                </div>
+                                <div class="payment-content" id="certificate-{{id}}-show">
+                                    <p>
+                                        {{description}}
+                                    </p>
+                                </div>
+                            </div>
+                            {{/each}}
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <button type="submit" class="btn btn-primary btn-lg">Cập nhật từ vựng</button>
+            </div>
+            {{/with}}
+        </div>
+
+    </div>
+
+</form>
+<!-- Checkout End -->

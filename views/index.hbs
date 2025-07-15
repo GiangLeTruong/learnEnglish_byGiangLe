@@ -1,0 +1,119 @@
+<!-- Main Slider Start -->
+<div class="home-slider">
+    <div class="main-slider">
+        <div class="main-slider-item"><img src="img/slider-1.jpg" alt="Slider Image" /></div>
+        <div class="main-slider-item"><img src="img/slider-2.jpg" alt="Slider Image" /></div>
+        <div class="main-slider-item"><img src="img/slider-3.jpg" alt="Slider Image" /></div>
+    </div>
+</div>
+<!-- Main Slider End -->
+
+
+<!-- Feature Start-->
+<div class="feature">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3 col-md-6 feature-col">
+                <div class="feature-content">
+                    <i class="fa fa-graduation-cap"></i>
+                    <h2>Học mỗi ngày</h2>
+                    <p>
+                        Nên học từ vựng mỗi ngày để tiến bộ hơn.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 feature-col">
+                <div class="feature-content">
+                    <i class="fa fa-hourglass-half"></i>
+                    <h2>Kiên trì</h2>
+                    <p>
+                        Kiên trì bền chí đạt thành công.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 feature-col">
+                <div class="feature-content">
+                    <i class="fa fa-bullseye"></i>
+                    <h2>Mục tiêu nhỏ</h2>
+                    <p>
+                        Những thứ lơn lao luôn bắt đầu từ những điều nhỏ bé.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 feature-col">
+                <div class="feature-content">
+                    <i class="fa fa-heart"></i>
+                    <h2>Tin vào bản thân</h2>
+                    <p>
+                        Hãy cho bản thân cơ hội để phát triển.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Feature End-->
+
+
+<!-- Category Start-->
+<div class="category">
+    <div class="container-fluid">
+        <div class="row">
+            {{#each categoryArray}}
+            <div class="col-md-4">
+                {{#each this}}
+                <div class="category-img">
+                    <img src="{{imagePath}}" alt="{{name}}" />
+                    <a class="category-name" href="/products?category={{id}}">
+                        <h2>{{name}}</h2>
+                    </a>
+                </div>
+                {{/each}}
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</div>
+<!-- Category End-->
+
+
+<!-- Featured Product Start -->
+<div class="featured-product">
+    <div class="container">
+        <div class="section-header">
+            <h3>Các từ vựng dài và khó học</h3>
+            <p>
+                Tại đây hiện ra các từ vựng dài và khó học nhất.
+            </p>
+        </div>
+        <div class="row align-items-center product-slider product-slider-4">
+            {{#each featuredVocabularies}}
+            <div class="col-lg-3">
+                {{>vocabulary}}
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</div>
+<!-- Featured Product End -->
+
+
+<!-- Recent Vocabulary -->
+<div class="recent-product">
+    <div class="container">
+        <div class="section-header">
+            <h3>Các từ vừa mới học</h3>
+            <p>
+                Tại đây hiện ra các từ vừa mới học gần đây nhất.
+            </p>
+        </div>
+        <div class="row align-items-center product-slider product-slider-4">
+            {{#each recentVocabularies}}
+            <div class="col-lg-3">
+                {{>vocabulary}}
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</div>
+<!-- Recent Vocabulary-->
