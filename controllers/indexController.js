@@ -191,6 +191,7 @@ controller.showMultiChoicePage = async (req, res) => {
             word: mixedVocabulary[i].word,
         }
         let newset = [coreItem, ...getRandomItems(allVocabularies, mixedVocabulary[i].word, 3)]
+        newset = shuffleArray(newset);
         mixedVocabulary[i].testResultSet = newset
     }
 
